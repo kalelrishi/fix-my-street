@@ -1,9 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ReportPage() {
   const [preview, setPreview] = useState<string | null>(null);
+
+  const [location, setLocation] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
+
+  const [locationStatus, setLocationStatus] = useState(
+    "Detecting location..."
+  );
 
   function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -11,6 +20,27 @@ export default function ReportPage() {
       setPreview(URL.createObjectURL(file));
     }
   }
+
+  // 📍 Auto-detect GPS location
+  useEffect(() => {
+    if (!navigator.geolocation) {
+      setLocationStatus("Location not supported on this device");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+        setLocationStatus("Location captured");
+      },
+      () => {
+        setLocationStatus("Location permission denied");
+      }
+    );
+  }, []);
 
   return (
     <main className="min-h-screen bg-yellow-50 px-6 py-12">
@@ -25,22 +55,25 @@ export default function ReportPage() {
       <div className="mx-auto mt-10 max-w-md rounded-2xl bg-white p-7 shadow-lg">
         {/* Issue Type */}
         <label className="block text-xl font-bold text-gray-900">
-        Issue Type
+          Issue Type
         </label>
 
-
         <select
-          className="mt-3 w-full rounded-lg border border-gray-300 bg-white p-3 text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-          defaultValue="Pothole"
-        >
-          <option className="text-gray-900">Pothole</option>
-          <option className="text-gray-900">Garbage</option>
-          <option className="text-gray-900">Street Light</option>
-          <option className="text-gray-900">Dead Animal</option>
-          <option className="text-gray-900">Water Leakage</option>
-          <option className="text-gray-900">Accident</option>
-          <option className="text-gray-900">Street Dogs</option>
-        </select>
+        className="mt-3 w-full rounded-lg border border-gray-300 bg-white p-3 text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        defaultValue=""
+      >
+        <option value="" disabled>
+          Example: Pothole
+        </option>
+        <option>Pothole</option>
+        <option>Garbage</option>
+        <option>Street Light</option>
+        <option>Dead Animal</option>
+        <option>Water Leakage</option>
+        <option>Accident</option>
+        <option>Street Dogs</option>
+      </select>
+
 
         {/* Photo Upload */}
         <label className="block text-xl font-bold text-gray-900 mt-6">
@@ -75,6 +108,11 @@ export default function ReportPage() {
               />
             )}
           </label>
+        </div>
+
+        {/* 📍 Location Status */}
+        <div className="mt-6 rounded-lg bg-yellow-100 p-3 text-center text-sm font-medium text-gray-800">
+          📍 {locationStatus}
         </div>
 
         {/* Submit Button */}
