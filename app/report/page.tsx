@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 export default function ReportPage() {
   const [preview, setPreview] = useState<string | null>(null);
+  const [issueType, setIssueType] = useState("");
 
   const [location, setLocation] = useState<{
     lat: number;
@@ -42,6 +43,9 @@ export default function ReportPage() {
     );
   }, []);
 
+  const isFormValid =
+    issueType !== "" && preview !== null && location !== null;
+
   return (
     <main className="min-h-screen bg-yellow-50 px-6 py-12">
       <h1 className="text-4xl font-bold text-gray-900 text-center">
@@ -59,22 +63,23 @@ export default function ReportPage() {
         </label>
 
         <select
-    className="mt-3 w-full rounded-lg border border-gray-300 bg-white p-3 text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-    defaultValue=""
-  >
-    <option value="" disabled className="text-gray-500">
-  Example: Pothole
-</option>
-
-    <option>Pothole</option>
-    <option>Garbage</option>
-    <option>Street Light</option>
-    <option>Dead Animal</option>
-    <option>Water Leakage</option>
-    <option>Accident</option>
-    <option>Street Dogs</option>
-  </select>
-
+          value={issueType}
+          onChange={(e) => setIssueType(e.target.value)}
+          className={`mt-3 w-full rounded-lg border border-gray-300 bg-white p-3 text-base focus:outline-none focus:ring-2 focus:ring-yellow-400 ${
+            issueType === "" ? "text-gray-500" : "text-gray-900"
+          }`}
+        >
+          <option value="" disabled>
+            Example: Pothole
+          </option>
+          <option>Pothole</option>
+          <option>Garbage</option>
+          <option>Street Light</option>
+          <option>Dead Animal</option>
+          <option>Water Leakage</option>
+          <option>Accident</option>
+          <option>Street Dogs</option>
+        </select>
 
         {/* Photo Upload */}
         <label className="block text-xl font-bold text-gray-900 mt-6">
@@ -118,22 +123,20 @@ export default function ReportPage() {
 
         {/* Submit Button */}
         <a
-          href={preview ? "/success" : "#"}
+          href={isFormValid ? "/success" : "#"}
           className={`mt-10 block w-full rounded-full py-4 text-center text-lg font-semibold transition
             ${
-              preview
+              isFormValid
                 ? "bg-yellow-400 text-black hover:bg-yellow-500"
                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
             }
           `}
           onClick={(e) => {
-            if (!preview) e.preventDefault();
+            if (!isFormValid) e.preventDefault();
           }}
         >
           Submit Report
-</a>
-
-
+        </a>
       </div>
     </main>
   );
