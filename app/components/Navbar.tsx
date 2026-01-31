@@ -6,33 +6,33 @@ import { usePathname } from "next/navigation";
 export default function Navbar() {
   const pathname = usePathname();
 
-  function linkClass(path: string) {
+  function linkStyle(path: string) {
     return pathname === path
-      ? "text-black font-bold underline underline-offset-4"
-      : "text-gray-800 hover:text-black";
+      ? "text-black font-semibold"
+      : "text-gray-700 hover:text-black";
   }
 
   return (
-    <nav className="w-full bg-yellow-400 px-6 py-4 shadow-md">
-      <div className="mx-auto flex max-w-5xl items-center justify-between">
-        {/* App Name */}
-        <Link href="/" className="text-xl font-extrabold text-black">
+    <header className="sticky top-0 z-50 bg-yellow-400/90 backdrop-blur border-b border-yellow-500">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        {/* Brand */}
+        <Link href="/" className="text-lg font-bold text-black">
           Fix My Street
         </Link>
 
-        {/* Links */}
-        <div className="flex gap-6 text-lg font-medium">
-          <Link href="/" className={linkClass("/")}>
+        {/* Navigation */}
+        <nav className="flex items-center gap-8 text-sm">
+          <Link href="/" className={linkStyle("/")}>
             Home
           </Link>
-          <Link href="/issues" className={linkClass("/issues")}>
+          <Link href="/issues" className={linkStyle("/issues")}>
             Issues
           </Link>
-          <Link href="/admin/" className={linkClass("/admin/issues")}>
+          <Link href="/admin" className={linkStyle("/admin")}>
             Admin
           </Link>
-        </div>
+        </nav>
       </div>
-    </nav>
+    </header>
   );
 }
