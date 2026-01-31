@@ -63,7 +63,9 @@ export default function ReportPage() {
         defaultValue=""
       >
         <option value="" disabled>
+          <label className="block text-xl font-bold text-gray-900">
           Example: Pothole
+        </label>
         </option>
         <option>Pothole</option>
         <option>Garbage</option>
