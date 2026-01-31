@@ -62,9 +62,10 @@ export default function ReportPage() {
     className="mt-3 w-full rounded-lg border border-gray-300 bg-white p-3 text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
     defaultValue=""
   >
-    <option value="" disabled>
-      Example: Pothole
-    </option>
+    <option value="" disabled className="text-gray-500">
+  Example: Pothole
+</option>
+
     <option>Pothole</option>
     <option>Garbage</option>
     <option>Street Light</option>
