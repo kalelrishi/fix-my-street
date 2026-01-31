@@ -117,9 +117,23 @@ export default function ReportPage() {
         </div>
 
         {/* Submit Button */}
-        <button className="mt-10 w-full rounded-full bg-yellow-400 py-4 text-lg font-semibold text-black hover:bg-yellow-500 transition">
+        <a
+          href={preview ? "/success" : "#"}
+          className={`mt-10 block w-full rounded-full py-4 text-center text-lg font-semibold transition
+            ${
+              preview
+                ? "bg-yellow-400 text-black hover:bg-yellow-500"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
+            }
+          `}
+          onClick={(e) => {
+            if (!preview) e.preventDefault();
+          }}
+        >
           Submit Report
-        </button>
+</a>
+
+
       </div>
     </main>
   );
