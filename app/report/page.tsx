@@ -59,22 +59,20 @@ export default function ReportPage() {
         </label>
 
         <select
-        className="mt-3 w-full rounded-lg border border-gray-300 bg-white p-3 text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-        defaultValue=""
-      >
-        <option value="" disabled>
-          <label className="block text-xl font-bold text-gray-10">
-          Example: Pothole
-        </label>
-        </option>
-        <option>Pothole</option>
-        <option>Garbage</option>
-        <option>Street Light</option>
-        <option>Dead Animal</option>
-        <option>Water Leakage</option>
-        <option>Accident</option>
-        <option>Street Dogs</option>
-      </select>
+    className="mt-3 w-full rounded-lg border border-gray-300 bg-white p-3 text-base text-gray-900 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+    defaultValue=""
+  >
+    <option value="" disabled>
+      Example: Pothole
+    </option>
+    <option>Pothole</option>
+    <option>Garbage</option>
+    <option>Street Light</option>
+    <option>Dead Animal</option>
+    <option>Water Leakage</option>
+    <option>Accident</option>
+    <option>Street Dogs</option>
+  </select>
 
 
         {/* Photo Upload */}
