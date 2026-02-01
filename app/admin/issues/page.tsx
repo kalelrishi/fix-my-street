@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const initialIssues = [
+const defaultIssues = [
   { id: 1, type: "Pothole", location: "Near Main Road", status: "Reported" },
   { id: 2, type: "Garbage", location: "Market Area", status: "In Progress" },
   { id: 3, type: "Street Light", location: "Bus Stop", status: "Reported" },
@@ -11,29 +11,35 @@ const initialIssues = [
 
 export default function AdminIssuesPage() {
   const router = useRouter();
-  const [issues, setIssues] = useState(initialIssues);
+  const [issues, setIssues] = useState<typeof defaultIssues>([]);
   const [checked, setChecked] = useState(false);
 
-  // 🔒 Protect admin route
+  // 🔒 Protect admin page + load issues
   useEffect(() => {
     const isAdmin = localStorage.getItem("isAdmin");
     if (!isAdmin) {
       router.replace("/admin");
-    } else {
-      setChecked(true);
+      return;
     }
+
+    const stored = localStorage.getItem("issues");
+    if (stored) {
+      setIssues(JSON.parse(stored));
+    } else {
+      localStorage.setItem("issues", JSON.stringify(defaultIssues));
+      setIssues(defaultIssues);
+    }
+
+    setChecked(true);
   }, [router]);
 
-  function changeStatus(id: number, newStatus: string) {
-    setIssues((prev) =>
-      prev.map((i) =>
-        i.id === id ? { ...i, status: newStatus } : i
-      )
+  function updateStatus(id: number, newStatus: string) {
+    const updated = issues.map((i) =>
+      i.id === id ? { ...i, status: newStatus } : i
     );
-  }
 
-  function handleUpdate() {
-    alert("Status updated successfully");
+    setIssues(updated);
+    localStorage.setItem("issues", JSON.stringify(updated));
   }
 
   if (!checked) return null;
@@ -43,10 +49,6 @@ export default function AdminIssuesPage() {
       <h1 className="text-4xl font-bold text-black text-center">
         Municipality Admin Panel
       </h1>
-
-      <p className="mt-3 text-center text-lg text-gray-800">
-        Manage and update reported public issues
-      </p>
 
       <div className="mx-auto mt-10 max-w-3xl space-y-6">
         {issues.map((issue) => (
@@ -68,21 +70,14 @@ export default function AdminIssuesPage() {
                 <select
                   value={issue.status}
                   onChange={(e) =>
-                    changeStatus(issue.id, e.target.value)
+                    updateStatus(issue.id, e.target.value)
                   }
-                  className="rounded-xl border-2 border-yellow-500 bg-white p-3 text-black font-semibold focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                  className="rounded-xl border-2 border-yellow-500 bg-white p-3 text-black font-semibold"
                 >
                   <option>Reported</option>
                   <option>In Progress</option>
                   <option>Resolved</option>
                 </select>
-
-                <button
-                  onClick={handleUpdate}
-                  className="rounded-full bg-yellow-500 px-5 py-3 font-semibold text-black hover:bg-yellow-600 transition"
-                >
-                  Update
-                </button>
               </div>
             </div>
           </div>
