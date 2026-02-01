@@ -1,6 +1,6 @@
 # Fix My Street 🏙️
 
-🌐 **Live Demo:** https://fix-my-street.vercel.app  
+🌐 **Live Demo:** [https://fix-my-street.vercel.app  ](https://fix-my-street-gamma.vercel.app/)
 📦 **Repository:** https://github.com/your-username/fix-my-street
 
 Fix My Street is a citizen-centric web application that allows people to report and support public infrastructure issues such as potholes, garbage accumulation, and faulty streetlights. The platform helps municipalities prioritize issues based on public feedback.
