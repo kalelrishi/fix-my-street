@@ -129,7 +129,7 @@ export default function IssuesPage() {
                     {issue.likes} supporters
                   </span>
                 </div>
-              </div>
+              </div> 
             </div>
           );
         })}
