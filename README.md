@@ -17,7 +17,10 @@ Fix My Street is a citizen-centric web application that allows people to report 
 - 📊 Public issues list with priority visibility  
 - 🧑‍💼 Admin dashboard to update issue status  
 - 🎨 Clean yellow-themed professional UI  
-- ✨ Smooth page transition animations  
+- ✨ Smooth page transition animations
+-
+- <img width="418" height="446" alt="image" src="https://github.com/user-attachments/assets/e560dbe3-6c52-4c3c-8298-b8f7cb48cde6" />
+
 
 ---
 
